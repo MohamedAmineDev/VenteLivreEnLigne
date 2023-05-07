@@ -22,6 +22,7 @@ public class Writer implements Serializable {
     private UUID id;
     private String name;
     private String penName;
+    @Column(length = 3000)
     private String imageLink;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "writer")
     private List<Book> books;

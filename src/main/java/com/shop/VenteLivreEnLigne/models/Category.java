@@ -1,6 +1,7 @@
 package com.shop.VenteLivreEnLigne.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,7 +20,10 @@ public class Category implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+    @NotNull
     private String label;
+    @NotNull
+    @Column(length = 3000)
     private String imageLink;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "category")
     private List<Book> books;
