@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template1"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Books</title>
+</head>
+<body>
+<div layout:fragment="content1">
+    <div class="container mt-2 mb-5">
+        <div class="card">
+            <div class="card-header text-center">
+                <h3 class="h3">Books</h3>
+            </div>
+            <div class="card-body">
+                <form method="get" th:action="@{index}">
+                    <label>keyword </label>
+                    <input type="text" name="keyword" th:value="${keyword}">
+                    <button type="submit" class="btn btn-primary ms-1">Search</button>
+                </form>
+                <table class="table">
+                    <thead>
+                    <th>ID</th>
+                    <th>Image</th>
+                    <th>Title</th>
+                    <th>Date</th>
+                    <th>Author</th>
+                    <th>Price</th>
+                    <th>Category</th>
+                    <th>Actions</th>
+                    </thead>
+                    <tbody>
+                    <tr th:each="b:${books}">
+                        <td th:text="${b.id}"></td>
+                        <td>
+                            <img th:src="${b.imageLink}" style="width:90px;height:90px"/>
+                        </td>
+                        <td th:text="${b.title}"></td>
+                        <td th:text="${b.writtenDate}"></td>
+                        <td th:text="${b.writer.name}"></td>
+                        <td th:text="${b.price}"></td>
+                        <td th:text="${b.category.label}"></td>
+                        <td>
+                            <a th:href="@{edit_book(id=${b.id},page=${currentPage},keyword=${keyword})}"
+                               class="btn btn-info">Edit</a>
+                            <a onclick="return confirm('Are you sure ? ')"
+                               th:href="@{delete_book(id=${b.id},page=${currentPage},keyword=${keyword})}"
+                               class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <ul class="nav nav-pills">
+                    <li th:each="page,status:${pages}" class="mb-2">
+                        <a th:class="${status.index==currentPage?'btn btn-primary ms-2':'btn btn-outline-primary ms-2'}"
+                           th:text="${status.index}"
+                           th:href="@{index(page=${status.index},keyword=${keyword})}"
+                        ></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
