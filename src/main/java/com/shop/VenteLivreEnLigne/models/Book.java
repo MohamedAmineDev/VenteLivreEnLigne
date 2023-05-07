@@ -23,6 +23,7 @@ public class Book implements Serializable {
     private String title;
     @NotEmpty
     @Size(min = 4)
+    @Column(length = 3000)
     private String imageLink;
     @NotNull
     @Min(value = 1)
