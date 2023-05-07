@@ -23,4 +23,8 @@ public class Category implements Serializable {
     private String imageLink;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "category")
     private List<Book> books;
+
+    public Category(UUID id) {
+        this.id = id;
+    }
 }

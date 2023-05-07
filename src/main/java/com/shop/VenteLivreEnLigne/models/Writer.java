@@ -33,4 +33,8 @@ public class Writer implements Serializable {
         this.imageLink = imageLink;
         books = new ArrayList<>();
     }
+
+    public Writer(UUID id) {
+        this.id = id;
+    }
 }

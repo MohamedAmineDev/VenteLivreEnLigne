@@ -1,12 +1,19 @@
 package com.shop.VenteLivreEnLigne.controllers;
 
 import com.shop.VenteLivreEnLigne.models.Book;
+import com.shop.VenteLivreEnLigne.models.Category;
+import com.shop.VenteLivreEnLigne.models.Writer;
 import com.shop.VenteLivreEnLigne.repositories.BookRepository;
+import com.shop.VenteLivreEnLigne.repositories.CategoryRepository;
+import com.shop.VenteLivreEnLigne.repositories.WriterRepository;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -17,6 +24,8 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class BookController {
     private final BookRepository bookRepository;
+    private final CategoryRepository categoryRepository;
+    private final WriterRepository writerRepository;
 
     @RequestMapping("/index")
     public String index(Model model, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "size", defaultValue = "3") int size, @RequestParam(name = "keyword", defaultValue = "") String keyword) {
@@ -42,5 +51,37 @@ public class BookController {
         } finally {
             return "redirect:/index?page=" + page + "&keyword=" + keyword;
         }
+    }
+
+    @RequestMapping("/add_book")
+    public String addBook(Model model) {
+        model.addAttribute("book", new Book());
+        model.addAttribute("categories", categoryRepository.findAll());
+        model.addAttribute("writers", writerRepository.findAll());
+        return "add_book.html";
+    }
+
+    @PostMapping("/save_book")
+    public String saveBook(Model model, @Valid Book book, BindingResult bindingResult, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "keyword", defaultValue = "") String keyword) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("categories", categoryRepository.findAll());
+            model.addAttribute("writers", writerRepository.findAll());
+            return "add_book.html";
+        }
+        book.setCategory(new Category(book.getCategoryId()));
+        book.setWriter(new Writer(book.getWriterId()));
+        bookRepository.save(book);
+        return "redirect:/index?page=" + page + "&keyword=" + keyword;
+    }
+
+    @RequestMapping("/edit_book")
+    public String editBook(Model model, @RequestParam(name = "id") UUID id, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "keyword", defaultValue = "") String keyword) {
+        Book book = bookRepository.findById(id).orElse(null);
+        model.addAttribute("book", book);
+        model.addAttribute("categories", categoryRepository.findAll());
+        model.addAttribute("writers", writerRepository.findAll());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("keyword", keyword);
+        return "edit_book.html";
     }
 }
