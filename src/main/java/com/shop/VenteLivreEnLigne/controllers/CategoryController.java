@@ -60,8 +60,7 @@ public class CategoryController {
         if (bindingResult.hasErrors()) {
             return "add_category.html";
         }
-        categoryRepository.save(category);
-        categoryRepository.flush();
+        categoryRepository.saveAndFlush(category);
         return "redirect:/categories?page=" + page + "&keyword=" + keyword;
     }
 
