@@ -15,7 +15,7 @@
                 <h3 class="h3">Register Writer</h3>
             </div>
             <div class="card-body">
-                <form method="post" th:action="@{save_writer}">
+                <form method="post" th:action="@{/admin/save_writer}">
                     <div class="form-group">
                         <label for="name">Name</label>
                         <input type="text" id="name" class="form-control" name="name" th:value="${writer.name}">

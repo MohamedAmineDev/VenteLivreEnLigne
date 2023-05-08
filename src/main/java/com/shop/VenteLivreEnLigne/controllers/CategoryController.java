@@ -24,7 +24,7 @@ public class CategoryController {
     private final CategoryRepository categoryRepository;
     private final BookRepository bookRepository;
 
-    @RequestMapping("/categories")
+    @RequestMapping("/user/categories")
     public String categories(Model model, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "size", defaultValue = "3") int size, @RequestParam(name = "keyword", defaultValue = "") String keyword) {
         Page<Category> categoryPage = categoryRepository.findByLabelContains(keyword, PageRequest.of(page, size));
         model.addAttribute("categories", categoryPage.getContent());
@@ -34,7 +34,7 @@ public class CategoryController {
         return "categories.html";
     }
 
-    @RequestMapping("/delete_category")
+    @RequestMapping("/admin/delete_category")
     public String deleteCategory(@RequestParam(name = "id") UUID id, @RequestParam(name = "page") int page, @RequestParam(name = "keyword") String keyword) {
         try {
             List<Book> books = bookRepository.findByCategoryById(id);
@@ -45,26 +45,26 @@ public class CategoryController {
         } catch (Exception exception) {
             exception.printStackTrace();
         } finally {
-            return "redirect:/categories?page=" + page + "&keyword=" + keyword;
+            return "redirect:/user/categories?page=" + page + "&keyword=" + keyword;
         }
     }
 
-    @RequestMapping("/add_category")
+    @RequestMapping("/admin/add_category")
     public String addCategory(Model model) {
         model.addAttribute("category", new Category());
         return "add_category.html";
     }
 
-    @PostMapping("/save_category")
+    @PostMapping("/admin/save_category")
     public String saveCategory(Model model, @Valid Category category, BindingResult bindingResult, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "keyword", defaultValue = "") String keyword) {
         if (bindingResult.hasErrors()) {
             return "add_category.html";
         }
         categoryRepository.saveAndFlush(category);
-        return "redirect:/categories?page=" + page + "&keyword=" + keyword;
+        return "redirect:/user/categories?page=" + page + "&keyword=" + keyword;
     }
 
-    @RequestMapping("/edit_category")
+    @RequestMapping("/admin/edit_category")
     public String editCategory(Model model, @RequestParam(name = "id") UUID id, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "keyword", defaultValue = "") String keyword) {
 
         try {
@@ -75,7 +75,7 @@ public class CategoryController {
             return "edit_category.html";
         } catch (Exception exception) {
             exception.printStackTrace();
-            return "redirect:/categories?page=" + page + "&keyword=" + keyword;
+            return "redirect:/user/categories?page=" + page + "&keyword=" + keyword;
         }
     }
 }

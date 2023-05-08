@@ -15,7 +15,7 @@
                 <h3 class="h3">Register Category</h3>
             </div>
             <div class="card-body">
-                <form method="post" th:action="@{save_category(page=${currentPage},keyword=${keyword})}">
+                <form method="post" th:action="@{/admin/save_category(page=${currentPage},keyword=${keyword})}">
                     <div class="form-group">
                         <input type="hidden" id="id" class="form-control" name="id" th:value="${category.id}">
                     </div>

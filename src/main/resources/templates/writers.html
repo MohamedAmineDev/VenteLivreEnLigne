@@ -15,7 +15,7 @@
                 <h3 class="h3">Writers</h3>
             </div>
             <div class="card-body">
-                <form method="get" th:action="@{writers}">
+                <form method="get" th:action="@{/user/writers}">
                     <label>keyword </label>
                     <input type="text" name="keyword" th:value="${keyword}">
                     <button type="submit" class="btn btn-primary ms-1">Search</button>
@@ -38,10 +38,10 @@
                         <td th:text="${w.penName}"></td>
 
                         <td>
-                            <a th:href="@{edit_writer(id=${w.id},page=${currentPage},keyword=${keyword})}"
+                            <a th:href="@{/admin/edit_writer(id=${w.id},page=${currentPage},keyword=${keyword})}"
                                class="btn btn-info">Edit</a>
                             <a onclick="return confirm('Are you sure ? ')"
-                               th:href="@{delete_writer(id=${w.id},page=${currentPage},keyword=${keyword})}"
+                               th:href="@{/admin/delete_writer(id=${w.id},page=${currentPage},keyword=${keyword})}"
                                class="btn btn-danger">Delete</a>
                         </td>
                     </tr>
@@ -51,7 +51,7 @@
                     <li th:each="page,status:${pages}" class="mb-2">
                         <a th:class="${status.index==currentPage?'btn btn-primary ms-2':'btn btn-outline-primary ms-2'}"
                            th:text="${status.index}"
-                           th:href="@{writers(page=${status.index},keyword=${keyword})}"
+                           th:href="@{/user/writers(page=${status.index},keyword=${keyword})}"
                         ></a>
                     </li>
                 </ul>
