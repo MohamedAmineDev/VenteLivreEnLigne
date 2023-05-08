@@ -1,6 +1,7 @@
 package com.shop.VenteLivreEnLigne.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,9 +21,12 @@ public class Writer implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+    @NotEmpty
     private String name;
+    @NotEmpty
     private String penName;
     @Column(length = 3000)
+    @NotEmpty
     private String imageLink;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "writer")
     private List<Book> books;

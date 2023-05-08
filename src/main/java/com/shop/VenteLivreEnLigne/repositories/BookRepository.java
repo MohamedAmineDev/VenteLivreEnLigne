@@ -14,4 +14,7 @@ public interface BookRepository extends JpaRepository<Book, UUID> {
 
     @Query("select b from Book b where b.category.id=?1")
     List<Book> findByCategoryById(UUID categoryId);
+
+    @Query("select b from Book b where b.writer.id=?1")
+    List<Book> findByWriterById(UUID writerId);
 }
