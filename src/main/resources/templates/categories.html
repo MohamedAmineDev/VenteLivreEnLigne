@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="template1"
+      xmlns:sec="http://www.w3.org/1999/xhtml"
 >
 <head>
     <meta charset="UTF-8">
@@ -25,7 +26,7 @@
                     <th>ID</th>
                     <th>Label</th>
                     <th>Image</th>
-                    <th>Actions</th>
+                    <th sec:authorize="hasRole('ROLE_ADMIN')">Actions</th>
                     </thead>
                     <tbody>
                     <tr th:each="c:${categories}">
@@ -34,7 +35,7 @@
                         <td>
                             <img th:src="${c.imageLink}" style="width:90px;height:90px"/>
                         </td>
-                        <td>
+                        <td sec:authorize="hasRole('ROLE_ADMIN')">
                             <a th:href="@{/admin/edit_category(id=${c.id},page=${currentPage},keyword=${keyword})}"
                                class="btn btn-info">Edit</a>
                             <a onclick="return confirm('Are you sure ? ')"

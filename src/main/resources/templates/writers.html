@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="template1"
+      xmlns:sec="http://www.w3.org/1999/xhtml"
 >
 <head>
     <meta charset="UTF-8">
@@ -26,7 +27,7 @@
                     <th>Image</th>
                     <th>Name</th>
                     <th>Pen Name</th>
-                    <th>Actions</th>
+                    <th sec:authorize="hasRole('ROLE_ADMIN')">Actions</th>
                     </thead>
                     <tbody>
                     <tr th:each="w:${writers}">
@@ -37,7 +38,9 @@
                         <td th:text="${w.name}"></td>
                         <td th:text="${w.penName}"></td>
 
-                        <td>
+                        <td
+                                sec:authorize="hasRole('ROLE_ADMIN')"
+                        >
                             <a th:href="@{/admin/edit_writer(id=${w.id},page=${currentPage},keyword=${keyword})}"
                                class="btn btn-info">Edit</a>
                             <a onclick="return confirm('Are you sure ? ')"
