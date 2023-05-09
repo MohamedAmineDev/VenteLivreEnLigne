@@ -27,7 +27,7 @@ public class BookController {
     private final CategoryRepository categoryRepository;
     private final WriterRepository writerRepository;
 
-    @RequestMapping("/index")
+    @RequestMapping("/user/index")
     public String index(Model model, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "size", defaultValue = "3") int size, @RequestParam(name = "keyword", defaultValue = "") String keyword) {
         Page<Book> bookPage = bookRepository.findByTitleContains(keyword, PageRequest.of(page, size));
         model.addAttribute("books", bookPage.getContent());
@@ -39,21 +39,21 @@ public class BookController {
 
     @RequestMapping("/")
     public String redirectToIndex(Model model) {
-        return "redirect:index";
+        return "redirect:/user/index";
     }
 
-    @RequestMapping("/delete_book")
+    @RequestMapping("/admin/delete_book")
     public String deleteBook(@RequestParam(name = "id") UUID id, @RequestParam(name = "page") int page, @RequestParam(name = "keyword") String keyword) {
         try {
             bookRepository.deleteById(id);
         } catch (Exception exception) {
             exception.printStackTrace();
         } finally {
-            return "redirect:/index?page=" + page + "&keyword=" + keyword;
+            return "redirect:/user/index?page=" + page + "&keyword=" + keyword;
         }
     }
 
-    @RequestMapping("/add_book")
+    @RequestMapping("/admin/add_book")
     public String addBook(Model model) {
         model.addAttribute("book", new Book());
         model.addAttribute("categories", categoryRepository.findAll());
@@ -61,7 +61,7 @@ public class BookController {
         return "add_book.html";
     }
 
-    @PostMapping("/save_book")
+    @PostMapping("/admin/save_book")
     public String saveBook(Model model, @Valid Book book, BindingResult bindingResult, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "keyword", defaultValue = "") String keyword) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("categories", categoryRepository.findAll());
@@ -71,10 +71,10 @@ public class BookController {
         book.setCategory(new Category(book.getCategoryId()));
         book.setWriter(new Writer(book.getWriterId()));
         bookRepository.save(book);
-        return "redirect:/index?page=" + page + "&keyword=" + keyword;
+        return "redirect:/user/index?page=" + page + "&keyword=" + keyword;
     }
 
-    @RequestMapping("/edit_book")
+    @RequestMapping("/admin/edit_book")
     public String editBook(Model model, @RequestParam(name = "id") UUID id, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "keyword", defaultValue = "") String keyword) {
         Book book = bookRepository.findById(id).orElse(null);
         model.addAttribute("book", book);

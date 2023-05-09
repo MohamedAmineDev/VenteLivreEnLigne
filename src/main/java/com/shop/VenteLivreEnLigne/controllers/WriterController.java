@@ -24,7 +24,7 @@ public class WriterController {
     private final WriterRepository writerRepository;
     private final BookRepository bookRepository;
 
-    @RequestMapping("/writers")
+    @RequestMapping("/user/writers")
     public String writers(Model model, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "size", defaultValue = "3") int size, @RequestParam(name = "keyword", defaultValue = "") String keyword) {
         Page<Writer> writerPage = writerRepository.findByNameContains(keyword, PageRequest.of(page, size));
         model.addAttribute("writers", writerPage.getContent());
@@ -34,7 +34,7 @@ public class WriterController {
         return "writers.html";
     }
 
-    @RequestMapping("/delete_writer")
+    @RequestMapping("/admin/delete_writer")
     public String deleteWriter(@RequestParam(name = "id") UUID id, @RequestParam(name = "page") int page, @RequestParam(name = "keyword") String keyword) {
         try {
             List<Book> books = bookRepository.findByWriterById(id);
@@ -43,26 +43,26 @@ public class WriterController {
         } catch (Exception exception) {
             exception.printStackTrace();
         } finally {
-            return "redirect:/writers?page=" + page + "&keyword=" + keyword;
+            return "redirect:/user/writers?page=" + page + "&keyword=" + keyword;
         }
     }
 
-    @RequestMapping("/add_writer")
+    @RequestMapping("/admin/add_writer")
     public String addWriter(Model model) {
         model.addAttribute("writer", new Writer());
         return "add_writer.html";
     }
 
-    @RequestMapping("/save_writer")
+    @RequestMapping("/admin/save_writer")
     public String saveWriter(Model model, @Valid Writer writer, BindingResult bindingResult, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "keyword", defaultValue = "") String keyword) {
         if (bindingResult.hasErrors()) {
             return "add_writer.html";
         }
         writerRepository.saveAndFlush(writer);
-        return "redirect:/writers?page=" + page + "&keyword=" + keyword;
+        return "redirect:/user/writers?page=" + page + "&keyword=" + keyword;
     }
 
-    @RequestMapping("/edit_writer")
+    @RequestMapping("/admin/edit_writer")
     public String editWriter(Model model, @RequestParam(name = "id") UUID id, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "keyword", defaultValue = "") String keyword) {
         try {
             Writer writer = writerRepository.findById(id).orElseThrow(() -> new RuntimeException("Writer not found !"));
@@ -72,7 +72,7 @@ public class WriterController {
             return "edit_writer.html";
         } catch (Exception exception) {
             exception.printStackTrace();
-            return "redirect:/writers?page=" + page + "&keyword=" + keyword;
+            return "redirect:/admin/writers?page=" + page + "&keyword=" + keyword;
         }
     }
 }

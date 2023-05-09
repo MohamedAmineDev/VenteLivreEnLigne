@@ -15,7 +15,7 @@
                 <h3 class="h3">Register Book</h3>
             </div>
             <div class="card-body">
-                <form method="post" th:action="@{save_book}">
+                <form method="post" th:action="@{/admin/save_book}">
                     <div class="form-group">
                         <label for="title">Title</label>
                         <input type="text" id="title" class="form-control" name="title" th:value="${book.title}">

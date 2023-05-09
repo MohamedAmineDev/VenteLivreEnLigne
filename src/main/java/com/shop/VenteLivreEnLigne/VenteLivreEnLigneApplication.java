@@ -3,6 +3,7 @@ package com.shop.VenteLivreEnLigne;
 import com.shop.VenteLivreEnLigne.models.Book;
 import com.shop.VenteLivreEnLigne.models.Category;
 import com.shop.VenteLivreEnLigne.models.Writer;
+import com.shop.VenteLivreEnLigne.repositories.AccountService;
 import com.shop.VenteLivreEnLigne.repositories.BookRepository;
 import com.shop.VenteLivreEnLigne.repositories.CategoryRepository;
 import com.shop.VenteLivreEnLigne.repositories.WriterRepository;
@@ -48,6 +49,23 @@ public class VenteLivreEnLigneApplication {
                 books.add(new Book(null, "Book " + (i + 1), "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/roman-history-book-cover-design-template-48914ad1e972113cd5e8508a05ad2904_screen.jpg?ts=1637014074", 20l, new Date(), 85.5, categories.get(i), writers.get(i)));
             }
             bookRepository.saveAllAndFlush(books);
+        };
+    }
+
+    //@Bean
+    CommandLineRunner commandLineRunnerUserDetails(AccountService accountService) {
+        return args -> {
+            accountService.addNewRole("USER");
+            accountService.addNewRole("ADMIN");
+            accountService.addNewUser("user1", "123", "user1@gmail.com", "123");
+            accountService.addNewUser("user2", "123", "user2@gmail.com", "123");
+            accountService.addNewUser("user3", "123", "user3@gmail.com", "123");
+            accountService.addNewUser("admin", "123", "admin@gmail.com", "123");
+            accountService.addRoleToUser("user1", "USER");
+            accountService.addRoleToUser("user2", "USER");
+            accountService.addRoleToUser("user3", "USER");
+            accountService.addRoleToUser("admin", "USER");
+            accountService.addRoleToUser("admin", "ADMIN");
         };
     }
 }
