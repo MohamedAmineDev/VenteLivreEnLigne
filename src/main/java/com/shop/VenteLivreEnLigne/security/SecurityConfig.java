@@ -17,7 +17,7 @@ public class SecurityConfig {
     private final PasswordEncoder passwordEncoder;
     private final UserDetailsServiceImpl userDetailsService;
 
-    @Bean
+    //@Bean
     public InMemoryUserDetailsManager inMemoryUserDetailsManager() {
         return new InMemoryUserDetailsManager(
 //                User.withUsername("user1").password("{noop}123").roles("USER").build(),
@@ -33,9 +33,11 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.formLogin().loginPage("/login").defaultSuccessUrl("/", true).permitAll();
-        //httpSecurity.rememberMe();
+        httpSecurity.formLogin().loginPage("/login").defaultSuccessUrl("/", true).failureForwardUrl("/login-error").permitAll();
+        httpSecurity.rememberMe().userDetailsService(userDetailsService);
         httpSecurity.authorizeHttpRequests().requestMatchers("/webjars/**").permitAll();
+        httpSecurity.authorizeHttpRequests().requestMatchers("/register_user", "/login-error").permitAll();
+        httpSecurity.authorizeHttpRequests().requestMatchers("/save_user").permitAll();
         httpSecurity.authorizeHttpRequests().requestMatchers("/user/**").hasRole("USER");
         httpSecurity.authorizeHttpRequests().requestMatchers("/admin/**").hasRole("ADMIN");
         httpSecurity.authorizeHttpRequests().anyRequest().authenticated();

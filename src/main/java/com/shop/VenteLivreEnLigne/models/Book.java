@@ -6,7 +6,9 @@ import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -44,6 +46,8 @@ public class Book implements Serializable {
     private UUID categoryId;
     @Transient
     private UUID writerId;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "book")
+    private List<CommandedBook> commandes;
 
     public Book(UUID id, String title, String imageLink, Long quantity, Date writtenDate, Double price, UUID categorieId, UUID writerId) {
         this.id = id;
@@ -54,6 +58,7 @@ public class Book implements Serializable {
         this.price = price;
         category = null;
         writer = new Writer(writerId, null, null, null, null);
+        commandes = new ArrayList<>();
     }
 
     public Book(UUID id, String title, String imageLink, Long quantity, Date writtenDate, Double price, Category category, Writer writer) {
@@ -65,5 +70,6 @@ public class Book implements Serializable {
         this.price = price;
         this.category = category;
         this.writer = writer;
+        commandes = new ArrayList<>();
     }
 }

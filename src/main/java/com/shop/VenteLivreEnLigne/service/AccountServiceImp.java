@@ -76,7 +76,7 @@ public class AccountServiceImp implements AccountService {
 
     @Override
     public AppUser loadUserByUsername(String username) {
-        return appUserRepository.findByUsername(username);
+        return appUserRepository.findByEmail(username);
     }
 
 }

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.w3.org/1999/xhtml"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Register user</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.2.3/css/bootstrap.min.css">
+    <script src="/webjars/bootstrap/5.2.3/js/bootstrap.bundle.js"
+    ></script>
+</head>
+<body>
+<div class="row mt-3">
+    <div class="col-md-6 offset-3">
+        <div class="card">
+            <div class="card-header text-center">Register User</div>
+            <div class="card-body">
+                <form method="post" th:action="@{/save_user}">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" class="form-control" name="username"
+                               th:value="${user.username}">
+                        <span class="text-danger" th:errors="${user.username}"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" class="form-control" name="email" th:value="${user.email}">
+                        <span class="text-danger" th:errors="${user.email}"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" class="form-control" name="password"
+                               th:value="${user.password}">
+                        <span class="text-danger" th:errors="${user.password}"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <input type="password" id="confirmPassword" class="form-control" name="confirmPassword"
+                               th:value="${user.confirmPassword}">
+                        <span class="text-danger" th:errors="${user.confirmPassword}"></span>
+                    </div>
+                    <div class="d-grid gap-2 my-2">
+                        <button type="submit" class="btn btn-primary my-2">Register</button>
+                    </div>
+                </form>
+                <div class="form-group my-2 text-center">
+                    <a th:href="@{/login}" class="text-primary text-decoration-underline "> Already have an account
+                        ?</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
