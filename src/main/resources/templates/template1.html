@@ -58,6 +58,9 @@
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                    th:text="${#authentication.name}"></a>
                 <ul class="dropdown-menu">
+                    <li sec:authorize="hasRole('ROLE_CLIENT')">
+                        <a th:href="@{/client/basket}" class="text-dark text-decoration-none dropdown-item">Basket</a>
+                    </li>
                     <li>
                         <form method="post" th:action="@{/logout}">
                             <button type="submit" class="dropdown-item">Logout</button>

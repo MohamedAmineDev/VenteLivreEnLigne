@@ -50,6 +50,10 @@
                                th:href="@{/admin/delete_book(id=${b.id},page=${currentPage},keyword=${keyword})}"
                                class="btn btn-danger">Delete</a>
                         </td>
+                        <td sec:authorize="hasRole('ROLE_CLIENT')">
+                            <a th:href="@{/client/put_book(id=${b.id},page=${currentPage},keyword=${keyword})}"
+                               class="btn btn-success">Put in the basket</a>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
