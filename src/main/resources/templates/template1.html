@@ -58,6 +58,26 @@
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                    th:text="${#authentication.name}"></a>
                 <ul class="dropdown-menu">
+                    <li sec:authorize="hasRole('ROLE_CLIENT')">
+                        <a th:href="@{/client/basket}" class="text-dark text-decoration-none dropdown-item">Basket</a>
+                    </li>
+                    <li sec:authorize="hasRole('ROLE_CLIENT')">
+                        <a th:href="@{/client/all_my_not_delivered_commands}"
+                           class="text-dark text-decoration-none dropdown-item">Not
+                            delivered commands</a>
+                    </li>
+                    <li sec:authorize="hasRole('ROLE_CLIENT')">
+                        <a th:href="@{/client/all_my_delivered_commands}"
+                           class="text-dark text-decoration-none dropdown-item">Delivered commands</a>
+                    </li>
+                    <li sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a th:href="@{/admin/all_not_delivered_commands}"
+                           class="text-dark text-decoration-none dropdown-item">Not delivered commands</a>
+                    </li>
+                    <li sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a th:href="@{/admin/all_delivered_commands}"
+                           class="text-dark text-decoration-none dropdown-item">Delivered commands</a>
+                    </li>
                     <li>
                         <form method="post" th:action="@{/logout}">
                             <button type="submit" class="dropdown-item">Logout</button>

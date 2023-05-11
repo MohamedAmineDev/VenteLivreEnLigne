@@ -1,15 +1,18 @@
 package com.shop.VenteLivreEnLigne.controllers;
 
-import com.shop.VenteLivreEnLigne.models.Book;
-import com.shop.VenteLivreEnLigne.models.Category;
-import com.shop.VenteLivreEnLigne.models.Writer;
+import com.shop.VenteLivreEnLigne.models.*;
+import com.shop.VenteLivreEnLigne.repositories.AppUserRepository;
 import com.shop.VenteLivreEnLigne.repositories.BookRepository;
 import com.shop.VenteLivreEnLigne.repositories.CategoryRepository;
 import com.shop.VenteLivreEnLigne.repositories.WriterRepository;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,6 +29,7 @@ public class BookController {
     private final BookRepository bookRepository;
     private final CategoryRepository categoryRepository;
     private final WriterRepository writerRepository;
+    private final AppUserRepository appUserRepository;
 
     @RequestMapping("/user/index")
     public String index(Model model, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "size", defaultValue = "3") int size, @RequestParam(name = "keyword", defaultValue = "") String keyword) {
@@ -39,6 +43,10 @@ public class BookController {
 
     @RequestMapping("/")
     public String redirectToIndex(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        AppUser u = appUserRepository.findByUsername(authentication.getName());
+        //session.setAttribute(u.getEmail(), new ShoppingBasket());
+        Basket.addUser(u.getId());
         return "redirect:/user/index";
     }
 

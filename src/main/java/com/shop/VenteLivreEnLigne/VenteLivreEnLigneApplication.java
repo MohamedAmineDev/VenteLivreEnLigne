@@ -55,7 +55,7 @@ public class VenteLivreEnLigneApplication {
     //@Bean
     CommandLineRunner commandLineRunnerUserDetails(AccountService accountService) {
         return args -> {
-            accountService.addNewRole("USER");
+            /*accountService.addNewRole("USER");
             accountService.addNewRole("ADMIN");
             accountService.addNewUser("user1", "123", "user1@gmail.com", "123");
             accountService.addNewUser("user2", "123", "user2@gmail.com", "123");
@@ -66,6 +66,9 @@ public class VenteLivreEnLigneApplication {
             accountService.addRoleToUser("user3", "USER");
             accountService.addRoleToUser("admin", "USER");
             accountService.addRoleToUser("admin", "ADMIN");
+             */
+            //accountService.addNewRole("CLIENT");
+            accountService.addRoleToUser("ahmed", "CLIENT");
         };
     }
 }

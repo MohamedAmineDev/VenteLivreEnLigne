@@ -29,7 +29,8 @@
                     <th>Date</th>
                     <th>Author</th>
                     <th>Price</th>
-                    <th>Category</th>
+                    <th>Genre</th>
+                    <th>Quantity</th>
                     <th>Actions</th>
                     </thead>
                     <tbody>
@@ -43,12 +44,17 @@
                         <td th:text="${b.writer.name}"></td>
                         <td th:text="${b.price}"></td>
                         <td th:text="${b.category.label}"></td>
+                        <td th:text="${b.quantity}"></td>
                         <td sec:authorize="hasRole('ROLE_ADMIN')">
                             <a th:href="@{/admin/edit_book(id=${b.id},page=${currentPage},keyword=${keyword})}"
                                class="btn btn-info">Edit</a>
                             <a onclick="return confirm('Are you sure ? ')"
                                th:href="@{/admin/delete_book(id=${b.id},page=${currentPage},keyword=${keyword})}"
                                class="btn btn-danger">Delete</a>
+                        </td>
+                        <td sec:authorize="hasRole('ROLE_CLIENT')">
+                            <a th:href="@{/client/put_book(id=${b.id},page=${currentPage},keyword=${keyword})}"
+                               class="btn btn-success">Put in the basket</a>
                         </td>
                     </tr>
                     </tbody>
