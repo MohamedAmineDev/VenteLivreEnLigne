@@ -19,7 +19,7 @@ public class CommandedBook implements Serializable {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private Long quantity;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Book book;
     @ManyToOne(fetch = FetchType.LAZY)
     private Command command;

@@ -34,15 +34,17 @@ public class AccountController {
         if (bindingResult.hasErrors()) {
             return "register-user.html";
         }
-        //System.out.println("----------------------------------------------------");
-        //accountService.addNewUser(user.getUsername(), user.getPassword(), user.getEmail(), user.getConfirmPassword());
-        //accountService.addRoleToUser(user.getUsername(), "USER");
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRoles(new ArrayList<>());
         AppRole role = appRoleRepository.findById("USER").orElse(null);
         if (role == null) {
             role = appRoleRepository.save(new AppRole("USER"));
         }
-        user.setRoles(new ArrayList<>());
+        user.getRoles().add(role);
+        role = appRoleRepository.findById("CLIENT").orElse(null);
+        if (role == null) {
+            role = appRoleRepository.save(new AppRole("CLIENT"));
+        }
         user.getRoles().add(role);
         appUserRepository.save(user);
         return "redirect:/login";

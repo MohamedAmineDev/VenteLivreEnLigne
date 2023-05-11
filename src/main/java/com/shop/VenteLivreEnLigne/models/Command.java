@@ -22,6 +22,9 @@ public class Command implements Serializable {
     private UUID id;
     private LocalDateTime commandedAt;
     private Double totalPrice;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private AppUser user;
+    private CommandStatus status;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "command")
     private List<CommandedBook> books;
 }

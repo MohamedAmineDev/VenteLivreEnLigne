@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template1"
+      xmlns:sec="http://www.w3.org/1999/xhtml"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>My not delivered commands</title>
+</head>
+<body>
+<div layout:fragment="content1">
+    <div class="container mt-2 mb-5">
+        <div class="card">
+            <div class="card-header text-center">
+                <h3 class="h3">My not delivered commands</h3>
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                    <th>ID</th>
+                    <th>Commanded at</th>
+                    <th>TotalPrice</th>
+                    <th>Actions</th>
+                    </thead>
+                    <tbody>
+                    <tr th:each="c:${commands}">
+                        <td th:text="${c.id}"></td>
+                        <td th:text="${c.commandedAt}"></td>
+                        <td th:text="${c.totalPrice}"></td>
+                        <td sec:authorize="hasRole('ROLE_CLIENT')">
+                            <a th:href="@{/client/command/see_details(command_id=${c.id})}"
+                               class="btn btn-info">See details</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <ul class="nav nav-pills">
+                    <li th:each="page,status:${pages}" class="mb-2">
+                        <a th:class="${status.index==currentPage?'btn btn-primary ms-2':'btn btn-outline-primary ms-2'}"
+                           th:text="${status.index}"
+                           th:href="@{/client/all_my_not_delivered_commands(page=${status.index})}"
+                        ></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

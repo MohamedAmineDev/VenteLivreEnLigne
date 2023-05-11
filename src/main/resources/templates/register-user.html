@@ -40,6 +40,12 @@
                                th:value="${user.confirmPassword}">
                         <span class="text-danger" th:errors="${user.confirmPassword}"></span>
                     </div>
+                    <div class="form-group">
+                        <label for="phoneNumber">Phone number</label>
+                        <input type="text" id="phoneNumber" class="form-control" name="phoneNumber"
+                               th:value="${user.phoneNumber}">
+                        <span class="text-danger" th:errors="${user.phoneNumber}"></span>
+                    </div>
                     <div class="d-grid gap-2 my-2">
                         <button type="submit" class="btn btn-primary my-2">Register</button>
                     </div>
