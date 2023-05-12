@@ -68,7 +68,12 @@ public class VenteLivreEnLigneApplication {
             accountService.addRoleToUser("admin", "ADMIN");
              */
             //accountService.addNewRole("CLIENT");
-            accountService.addRoleToUser("ahmed", "CLIENT");
+            accountService.addNewRole("USER");
+            accountService.addNewRole("ADMIN");
+            accountService.addNewRole("CLIENT");
+            accountService.addNewUser("admin", "mmmmmm", "admin@gmail.com", "mmmmmm");
+            accountService.addRoleToUser("admin", "USER");
+            accountService.addRoleToUser("admin", "ADMIN");
         };
     }
 }

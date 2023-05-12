@@ -38,6 +38,13 @@ public class AppUser {
     private List<Command> commands;
     @NotNull
     private Integer phoneNumber;
+    @Transient
+    private String role;
+    private Boolean locked;
+    private Boolean isMale;
+    @Column(length = 3000)
+    @NotNull
+    private String profileImage;
 
     public AppUser(UUID id, String username, String password, String email, String confirmPassword, List<AppRole> roles) {
         this.id = id;

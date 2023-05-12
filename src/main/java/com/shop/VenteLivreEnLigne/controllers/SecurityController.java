@@ -35,10 +35,16 @@ public class SecurityController {
     }
 
     @RequestMapping("/logout")
-    public String logout(HttpSession session) {
+    public String logout() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         AppUser u = appUserRepository.findByUsername(authentication.getName());
         Basket.storages.remove(u.getId());
         return "redirect:/login";
+    }
+
+    @RequestMapping("/change_password")
+    public String changePassword(Model model) {
+        model.addAttribute("user", new AppUser());
+        return "change-password.html";
     }
 }

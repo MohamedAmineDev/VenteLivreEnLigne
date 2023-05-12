@@ -9,61 +9,65 @@
 </head>
 <body>
 <div layout:fragment="content1">
-    <div class="container mt-2 mb-5">
-        <div class="card">
-            <div class="card-header text-center">
-                <h3 class="h3">Edit Book</h3>
-            </div>
-            <div class="card-body">
-                <form method="post" th:action="@{/admin/save_book(page=${page},keyword=${keyword})}">
-                    <div class="form-group">
-                        <input type="hidden" id="id" class="form-control" name="id" th:value="${book.id}">
-                    </div>
-                    <div class="form-group">
-                        <label for="title">Title</label>
-                        <input type="text" id="title" class="form-control" name="title" th:value="${book.title}">
-                        <span class="text-danger" th:errors="${book.title}"></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="imageLink">Image link</label>
-                        <input type="text" id="imageLink" class="form-control" name="imageLink"
-                               th:value="${book.imageLink}">
-                        <span class="text-danger" th:errors="${book.imageLink}"></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="quantity">Quantity</label>
-                        <input type="text" id="quantity" class="form-control" name="quantity"
-                               th:value="${book.quantity}">
-                        <span class="text-danger" th:errors="${book.quantity}"></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="writtenDate">Written date</label>
-                        <input type="date" id="writtenDate" class="form-control" name="writtenDate"
-                               th:value="${book.writtenDate}">
-                        <span class="text-danger" th:errors="${book.writtenDate}"></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="price">Price</label>
-                        <input type="text" id="price" class="form-control" name="price" th:value="${book.price}">
-                        <span class="text-danger" th:errors="${book.price}"></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="category">Category</label>
-                        <select class="form-control" th:field="${book.categoryId}" id="category">
-                            <option th:each="category : ${categories}" th:value="${category.id}"
-                                    th:text="${category.label}"></option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="writer">Writer</label>
-                        <select class="form-control" th:field="${book.writerId}" id="writer">
-                            <option th:each="writer : ${writers}" th:value="${writer.id}"
-                                    th:text="${writer.name}"></option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn btn-primary my-1">Save</button>
-                </form>
+    <div class="row mt-3">
+        <div class="col-md-6 offset-3">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h3 class="h3">Edit Book</h3>
+                </div>
+                <div class="card-body">
+                    <form method="post" th:action="@{/admin/save_book(page=${page},keyword=${keyword})}">
+                        <div class="form-group">
+                            <input type="hidden" id="id" class="form-control" name="id" th:value="${book.id}">
+                        </div>
+                        <div class="form-group">
+                            <label for="title">Title</label>
+                            <input type="text" id="title" class="form-control" name="title" th:value="${book.title}">
+                            <span class="text-danger" th:errors="${book.title}"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="imageLink">Image link</label>
+                            <input type="text" id="imageLink" class="form-control" name="imageLink"
+                                   th:value="${book.imageLink}">
+                            <span class="text-danger" th:errors="${book.imageLink}"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="quantity">Quantity</label>
+                            <input type="text" id="quantity" class="form-control" name="quantity"
+                                   th:value="${book.quantity}">
+                            <span class="text-danger" th:errors="${book.quantity}"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="writtenDate">Written date</label>
+                            <input type="date" id="writtenDate" class="form-control" name="writtenDate"
+                                   th:value="${book.writtenDate}">
+                            <span class="text-danger" th:errors="${book.writtenDate}"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="price">Price</label>
+                            <input type="text" id="price" class="form-control" name="price" th:value="${book.price}">
+                            <span class="text-danger" th:errors="${book.price}"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="category">Category</label>
+                            <select class="form-control" th:field="${book.categoryId}" id="category">
+                                <option th:each="category : ${categories}" th:value="${category.id}"
+                                        th:text="${category.label}"></option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="writer">Writer</label>
+                            <select class="form-control" th:field="${book.writerId}" id="writer">
+                                <option th:each="writer : ${writers}" th:value="${writer.id}"
+                                        th:text="${writer.name}"></option>
+                            </select>
+                        </div>
+                        <div class="d-grid gap-2 my-2">
+                            <button type="submit" class="btn btn-primary my-2">Login</button>
+                        </div>
+                    </form>
 
+                </div>
             </div>
         </div>
     </div>

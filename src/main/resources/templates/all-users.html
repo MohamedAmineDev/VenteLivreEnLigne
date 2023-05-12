@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template1"
+      xmlns:sec="http://www.w3.org/1999/xhtml"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+</head>
+<body>
+<div layout:fragment="content1">
+    <div class="container mt-2 mb-5">
+        <div class="card">
+            <div class="card-header text-center">
+                <h3 class="h3">Users</h3>
+            </div>
+            <div class="card-body">
+                <form method="get" th:action="@{/admin/all_users}">
+                    <label>keyword </label>
+                    <input type="text" name="keyword" th:value="${keyword}">
+                    <button type="submit" class="btn btn-primary ms-1">Search</button>
+                </form>
+                <table class="table">
+                    <thead>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                    <th>Gender</th>
+                    <th>Actions</th>
+                    </thead>
+                    <tbody>
+                    <tr th:each="u:${users}">
+                        <td th:text="${u.id}"></td>
+                        <td th:text="${u.username}"></td>
+                        <td th:text="${u.email}"></td>
+                        <td th:text="${u.role}"></td>
+                        <td th:if="${u.locked == true}">Locked</td>
+                        <td th:if="${u.locked == false}">Unlocked</td>
+                        <td th:if="${u.isMale == true}">Male</td>
+                        <td th:if="${u.isMale == false}">Female</td>
+                        <td sec:authorize="hasRole('ROLE_ADMIN')">
+                            <a th:href="@{/admin/user/unlock(user_id=${u.id},page=${currentPage},keyword=${keyword})}"
+                               class="btn btn-danger"
+                               th:if="${u.locked == true}"
+                            >Unlock</a>
+                            <a onclick="return confirm('Are you sure ? ')"
+                               th:href="@{/admin/user/lock(user_id=${u.id},page=${currentPage},keyword=${keyword})}"
+                               th:if="${u.locked == false}"
+                               class="btn btn-info">Lock</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <ul class="nav nav-pills">
+                    <li th:each="page,status:${pages}" class="mb-2">
+                        <a th:class="${status.index==currentPage?'btn btn-primary ms-2':'btn btn-outline-primary ms-2'}"
+                           th:text="${status.index}"
+                           th:href="@{/admin/all_users(page=${status.index},keyword=${keyword})}"
+                        ></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
