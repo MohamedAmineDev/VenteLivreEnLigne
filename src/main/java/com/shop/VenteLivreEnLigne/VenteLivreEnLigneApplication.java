@@ -52,7 +52,7 @@ public class VenteLivreEnLigneApplication {
         };
     }
 
-    @Bean
+    //@Bean
     CommandLineRunner commandLineRunnerUserDetails(AccountService accountService) {
         return args -> {
             /*accountService.addNewRole("USER");
