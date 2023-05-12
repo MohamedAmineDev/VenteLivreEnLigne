@@ -49,10 +49,10 @@
                             <span class="text-danger" th:errors="${book.price}"></span>
                         </div>
                         <div class="form-group">
-                            <label for="category">Category</label>
-                            <select class="form-control" th:field="${book.categoryId}" id="category">
-                                <option th:each="category : ${categories}" th:value="${category.id}"
-                                        th:text="${category.label}"></option>
+                            <label for="genre">Category</label>
+                            <select class="form-control" th:field="${book.categoryId}" id="genre">
+                                <option th:each="genre : ${categories}" th:value="${genre.id}"
+                                        th:text="${genre.label}"></option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -63,7 +63,7 @@
                             </select>
                         </div>
                         <div class="d-grid gap-2 my-2">
-                            <button type="submit" class="btn btn-primary my-2">Login</button>
+                            <button type="submit" class="btn btn-primary my-2">Save</button>
                         </div>
                     </form>
 

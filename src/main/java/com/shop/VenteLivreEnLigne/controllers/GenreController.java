@@ -1,9 +1,9 @@
 package com.shop.VenteLivreEnLigne.controllers;
 
 import com.shop.VenteLivreEnLigne.models.Book;
-import com.shop.VenteLivreEnLigne.models.Category;
+import com.shop.VenteLivreEnLigne.models.Genre;
 import com.shop.VenteLivreEnLigne.repositories.BookRepository;
-import com.shop.VenteLivreEnLigne.repositories.CategoryRepository;
+import com.shop.VenteLivreEnLigne.repositories.GenreRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -20,62 +20,62 @@ import java.util.UUID;
 
 @Controller
 @RequiredArgsConstructor
-public class CategoryController {
-    private final CategoryRepository categoryRepository;
+public class GenreController {
+    private final GenreRepository genreRepository;
     private final BookRepository bookRepository;
 
-    @RequestMapping("/user/categories")
+    @RequestMapping("/user/genres")
     public String categories(Model model, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "size", defaultValue = "3") int size, @RequestParam(name = "keyword", defaultValue = "") String keyword) {
-        Page<Category> categoryPage = categoryRepository.findByLabelContains(keyword, PageRequest.of(page, size));
-        model.addAttribute("categories", categoryPage.getContent());
+        Page<Genre> categoryPage = genreRepository.findByLabelContains(keyword, PageRequest.of(page, size));
+        model.addAttribute("genres", categoryPage.getContent());
         model.addAttribute("pages", new int[categoryPage.getTotalPages()]);
         model.addAttribute("currentPage", page);
         model.addAttribute("keyword", keyword);
-        return "categories.html";
+        return "genres.html";
     }
 
-    @RequestMapping("/admin/delete_category")
+    @RequestMapping("/admin/delete_genre")
     public String deleteCategory(@RequestParam(name = "id") UUID id, @RequestParam(name = "page") int page, @RequestParam(name = "keyword") String keyword) {
         try {
-            List<Book> books = bookRepository.findByCategoryById(id);
+            List<Book> books = bookRepository.findByGenreById(id);
             bookRepository.deleteAll(books);
             bookRepository.flush();
-            categoryRepository.deleteById(id);
-            categoryRepository.flush();
+            genreRepository.deleteById(id);
+            genreRepository.flush();
         } catch (Exception exception) {
             exception.printStackTrace();
         } finally {
-            return "redirect:/user/categories?page=" + page + "&keyword=" + keyword;
+            return "redirect:/user/genres?page=" + page + "&keyword=" + keyword;
         }
     }
 
-    @RequestMapping("/admin/add_category")
+    @RequestMapping("/admin/add_genre")
     public String addCategory(Model model) {
-        model.addAttribute("category", new Category());
-        return "add_category.html";
+        model.addAttribute("genre", new Genre());
+        return "add_genre.html";
     }
 
-    @PostMapping("/admin/save_category")
-    public String saveCategory(Model model, @Valid Category category, BindingResult bindingResult, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "keyword", defaultValue = "") String keyword) {
+    @PostMapping("/admin/save_genre")
+    public String saveCategory(Model model, @Valid Genre genre, BindingResult bindingResult, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "keyword", defaultValue = "") String keyword) {
         if (bindingResult.hasErrors()) {
-            return "add_category.html";
+            return "add_genre.html";
         }
-        categoryRepository.saveAndFlush(category);
-        return "redirect:/user/categories?page=" + page + "&keyword=" + keyword;
+        genreRepository.saveAndFlush(genre);
+        return "redirect:/user/genres?page=" + page + "&keyword=" + keyword;
     }
 
-    @RequestMapping("/admin/edit_category")
+    @RequestMapping("/admin/edit_genre")
     public String editCategory(Model model, @RequestParam(name = "id") UUID id, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "keyword", defaultValue = "") String keyword) {
 
         try {
-            Category category = categoryRepository.findById(id).orElseThrow(() -> new RuntimeException("Category not found !"));
-            model.addAttribute("category", category);
+            Genre genre = genreRepository.findById(id).orElseThrow(() -> new RuntimeException("Category not found !"));
+            model.addAttribute("genre", genre);
             model.addAttribute("currentPage", page);
             model.addAttribute("keyword", keyword);
-            return "edit_category.html";
+            return "edit_genre.html";
         } catch (Exception exception) {
             exception.printStackTrace();
-            return "redirect:/user/categories?page=" + page + "&keyword=" + keyword;
+            return "redirect:/user/genres?page=" + page + "&keyword=" + keyword;
         }
     }
 }

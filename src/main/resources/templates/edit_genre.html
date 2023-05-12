@@ -5,7 +5,7 @@
 >
 <head>
     <meta charset="UTF-8">
-    <title>Register Category</title>
+    <title>Edit Genre</title>
 </head>
 <body>
 <div layout:fragment="content1">
@@ -13,21 +13,24 @@
         <div class="col-md-6 offset-3">
             <div class="card">
                 <div class="card-header text-center">
-                    <h3 class="h3">Register Category</h3>
+                    <h3 class="h3">Edit Category</h3>
                 </div>
                 <div class="card-body">
-                    <form method="post" th:action="@{/admin/save_category}">
+                    <form method="post" th:action="@{/admin/save_genre(page=${currentPage},keyword=${keyword})}">
+                        <div class="form-group">
+                            <input type="hidden" id="id" class="form-control" name="id" th:value="${genre.id}">
+                        </div>
                         <div class="form-group">
                             <label for="label">Label</label>
                             <input type="text" id="label" class="form-control" name="label"
-                                   th:value="${category.label}">
-                            <span class="text-danger" th:errors="${category.label}"></span>
+                                   th:value="${genre.label}">
+                            <span class="text-danger" th:errors="${genre.label}"></span>
                         </div>
                         <div class="form-group">
                             <label for="imageLink">Image link</label>
                             <input type="text" id="imageLink" class="form-control" name="imageLink"
-                                   th:value="${category.imageLink}">
-                            <span class="text-danger" th:errors="${category.imageLink}"></span>
+                                   th:value="${genre.imageLink}">
+                            <span class="text-danger" th:errors="${genre.imageLink}"></span>
                         </div>
                         <div class="d-grid gap-2 my-2">
                             <button type="submit" class="btn btn-primary my-2">Save</button>

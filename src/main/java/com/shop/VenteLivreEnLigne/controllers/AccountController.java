@@ -101,4 +101,13 @@ public class AccountController {
         appUserRepository.save(user);
         return "redirect:/admin/all_users?page=" + page + "&size=" + size;
     }
+
+    @RequestMapping("/user/my_profile")
+    public String getProfile(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        AppUser u = appUserRepository.findByUsername(authentication.getName());
+        u = appUserRepository.findByUsername(u.getUsername());
+        model.addAttribute("user", u);
+        return "my-profile.html";
+    }
 }
