@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template1"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>My profile</title>
+</head>
+<body>
+<div layout:fragment="content1">
+    <div class="row mt-3">
+        <div class="col-md-6 offset-3">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h3 class="h3">My profile</h3>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <img th:src="${user.profileImage}" style="width:90px;height:90px"/>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="ms-5 fs-4 text-primary text-decoration-underline">Username :</label>
+                        <label th:text="${user.username}" class="ms-5 fs-4 fw-normal"></label>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="ms-5 fs-4 text-primary text-decoration-underline">Email :</label>
+                        <label th:text="${user.email}" class="ms-5 fs-4 fw-normal"></label>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="ms-5 fs-4 text-primary text-decoration-underline">Genre :</label>
+                        <label th:if="${user.isMale == true}" class="ms-5 fs-4 fw-normal">Male</label>
+                        <label th:if="${user.isMale == false}" class="ms-5 fs-4 fw-normal">Female</label>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="ms-5 fs-4 text-primary text-decoration-underline">Phone number :</label>
+                        <label th:text="${user.phoneNumber}" class="ms-5 fs-4 fw-normal"></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

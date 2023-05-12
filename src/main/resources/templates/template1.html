@@ -33,11 +33,12 @@
                 </ul>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Categories</a>
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Genre</a>
                 <ul class="dropdown-menu">
-                    <li sec:authorize="hasRole('ROLE_ADMIN')"><a class="dropdown-item" th:href="@{/admin/add_category}">New</a>
+                    <li sec:authorize="hasRole('ROLE_ADMIN')"><a class="dropdown-item"
+                                                                 th:href="@{/admin/add_genre}">New</a>
                     </li>
-                    <li><a class="dropdown-item" th:href="@{/user/categories}">Search</a></li>
+                    <li><a class="dropdown-item" th:href="@{/user/genres}">Search</a></li>
                 </ul>
             </li>
             <li class="nav-item dropdown">
@@ -63,6 +64,10 @@
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                    th:text="${#authentication.name}"></a>
                 <ul class="dropdown-menu">
+                    <li sec:authorize="hasRole('ROLE_USER')">
+                        <a th:href="@{/user/my_profile}"
+                           class="text-dark text-decoration-none dropdown-item">My profile</a>
+                    </li>
                     <li sec:authorize="hasRole('ROLE_CLIENT')">
                         <a th:href="@{/client/basket}" class="text-dark text-decoration-none dropdown-item">Basket</a>
                     </li>

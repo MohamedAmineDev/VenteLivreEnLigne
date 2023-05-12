@@ -6,17 +6,17 @@
 >
 <head>
     <meta charset="UTF-8">
-    <title>Categories</title>
+    <title>Genres</title>
 </head>
 <body>
 <div layout:fragment="content1">
     <div class="container mt-2 mb-5">
         <div class="card">
             <div class="card-header text-center">
-                <h3 class="h3">Categories</h3>
+                <h3 class="h3">Genres</h3>
             </div>
             <div class="card-body">
-                <form method="get" th:action="@{/user/categories}">
+                <form method="get" th:action="@{/user/genres}">
                     <label>keyword </label>
                     <input type="text" name="keyword" th:value="${keyword}">
                     <button type="submit" class="btn btn-primary ms-1">Search</button>
@@ -29,17 +29,17 @@
                     <th sec:authorize="hasRole('ROLE_ADMIN')">Actions</th>
                     </thead>
                     <tbody>
-                    <tr th:each="c:${categories}">
-                        <td th:text="${c.id}"></td>
-                        <td th:text="${c.label}"></td>
+                    <tr th:each="g:${genres}">
+                        <td th:text="${g.id}"></td>
+                        <td th:text="${g.label}"></td>
                         <td>
-                            <img th:src="${c.imageLink}" style="width:90px;height:90px"/>
+                            <img th:src="${g.imageLink}" style="width:90px;height:90px"/>
                         </td>
                         <td sec:authorize="hasRole('ROLE_ADMIN')">
-                            <a th:href="@{/admin/edit_category(id=${c.id},page=${currentPage},keyword=${keyword})}"
+                            <a th:href="@{/admin/edit_genre(id=${g.id},page=${currentPage},keyword=${keyword})}"
                                class="btn btn-info">Edit</a>
                             <a onclick="return confirm('Are you sure ? ')"
-                               th:href="@{/admin/delete_category(id=${c.id},page=${currentPage},keyword=${keyword})}"
+                               th:href="@{/admin/delete_genre(id=${g.id},page=${currentPage},keyword=${keyword})}"
                                class="btn btn-danger">Delete</a>
                         </td>
                     </tr>
@@ -49,7 +49,7 @@
                     <li th:each="page,status:${pages}" class="mb-2">
                         <a th:class="${status.index==currentPage?'btn btn-primary ms-2':'btn btn-outline-primary ms-2'}"
                            th:text="${status.index}"
-                           th:href="@{/user/categories(page=${status.index},keyword=${keyword})}"
+                           th:href="@{/user/genres(page=${status.index},keyword=${keyword})}"
                         ></a>
                     </li>
                 </ul>

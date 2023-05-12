@@ -16,7 +16,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Category implements Serializable {
+public class Genre implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
@@ -25,10 +25,10 @@ public class Category implements Serializable {
     @NotNull
     @Column(length = 3000)
     private String imageLink;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "category")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "genre")
     private List<Book> books;
 
-    public Category(UUID id) {
+    public Genre(UUID id) {
         this.id = id;
     }
 }

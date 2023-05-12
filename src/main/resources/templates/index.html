@@ -43,7 +43,7 @@
                         <td th:text="${b.writtenDate}"></td>
                         <td th:text="${b.writer.name}"></td>
                         <td th:text="${b.price}"></td>
-                        <td th:text="${b.category.label}"></td>
+                        <td th:text="${b.genre.label}"></td>
                         <td th:text="${b.quantity}"></td>
                         <td sec:authorize="hasRole('ROLE_ADMIN')">
                             <a th:href="@{/admin/edit_book(id=${b.id},page=${currentPage},keyword=${keyword})}"

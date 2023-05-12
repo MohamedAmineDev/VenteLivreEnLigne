@@ -39,7 +39,7 @@ public class Book implements Serializable {
     @Min(value = 1)
     private Double price;
     @ManyToOne(fetch = FetchType.EAGER)
-    private Category category;
+    private Genre genre;
     @ManyToOne(fetch = FetchType.EAGER)
     private Writer writer;
     @Transient
@@ -49,26 +49,26 @@ public class Book implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "book")
     private List<CommandedBook> commandes;
 
-    public Book(UUID id, String title, String imageLink, Long quantity, Date writtenDate, Double price, UUID categorieId, UUID writerId) {
+    public Book(UUID id, String title, String imageLink, Long quantity, Date writtenDate, Double price, UUID genreId, UUID writerId) {
         this.id = id;
         this.title = title;
         this.imageLink = imageLink;
         this.quantity = quantity;
         this.writtenDate = writtenDate;
         this.price = price;
-        category = null;
+        genre = new Genre(genreId);
         writer = new Writer(writerId, null, null, null, null);
         commandes = new ArrayList<>();
     }
 
-    public Book(UUID id, String title, String imageLink, Long quantity, Date writtenDate, Double price, Category category, Writer writer) {
+    public Book(UUID id, String title, String imageLink, Long quantity, Date writtenDate, Double price, Genre genre, Writer writer) {
         this.id = id;
         this.title = title;
         this.imageLink = imageLink;
         this.quantity = quantity;
         this.writtenDate = writtenDate;
         this.price = price;
-        this.category = category;
+        this.genre = genre;
         this.writer = writer;
         commandes = new ArrayList<>();
     }

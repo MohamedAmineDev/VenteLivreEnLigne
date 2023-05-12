@@ -12,8 +12,8 @@ import java.util.UUID;
 public interface BookRepository extends JpaRepository<Book, UUID> {
     Page<Book> findByTitleContains(String title, Pageable pageable);
 
-    @Query("select b from Book b where b.category.id=?1")
-    List<Book> findByCategoryById(UUID categoryId);
+    @Query("select b from Book b where b.genre.id=?1")
+    List<Book> findByGenreById(UUID genreId);
 
     @Query("select b from Book b where b.writer.id=?1")
     List<Book> findByWriterById(UUID writerId);

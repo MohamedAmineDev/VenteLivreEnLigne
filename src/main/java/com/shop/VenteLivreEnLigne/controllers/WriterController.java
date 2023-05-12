@@ -1,7 +1,6 @@
 package com.shop.VenteLivreEnLigne.controllers;
 
 import com.shop.VenteLivreEnLigne.models.Book;
-import com.shop.VenteLivreEnLigne.models.Category;
 import com.shop.VenteLivreEnLigne.models.Writer;
 import com.shop.VenteLivreEnLigne.repositories.BookRepository;
 import com.shop.VenteLivreEnLigne.repositories.WriterRepository;
