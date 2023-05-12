@@ -23,6 +23,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (appUser == null) {
             throw new UsernameNotFoundException("User was not found !");
         }
+        if (appUser.getLocked() == true) {
+            throw new UsernameNotFoundException("User is locked ");
+        }
         String[] myRoles = appUser.getRoles().stream().map(role -> role.getRole()).toArray(String[]::new);
         return User.withUsername(appUser.getUsername()).password(appUser.getPassword())
                 .roles(myRoles)

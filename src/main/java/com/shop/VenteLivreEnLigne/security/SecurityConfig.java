@@ -37,7 +37,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.formLogin().loginPage("/login").defaultSuccessUrl("/", true).failureForwardUrl("/login-error").permitAll();
         httpSecurity.rememberMe().userDetailsService(userDetailsService);
-        httpSecurity.authorizeHttpRequests().requestMatchers("/webjars/**").permitAll();
+        httpSecurity.authorizeHttpRequests().requestMatchers("/webjars/**","/js/**").permitAll();
         httpSecurity.authorizeHttpRequests().requestMatchers("/register_user", "/login-error").permitAll();
         httpSecurity.authorizeHttpRequests().requestMatchers("/save_user").permitAll();
         httpSecurity.authorizeHttpRequests().requestMatchers("/user/**").hasRole("USER");

@@ -9,31 +9,35 @@
 </head>
 <body>
 <div layout:fragment="content1">
-    <div class="container mt-2 mb-5">
-        <div class="card">
-            <div class="card-header text-center">
-                <h3 class="h3">Register Category</h3>
-            </div>
-            <div class="card-body">
-                <form method="post" th:action="@{/admin/save_category(page=${currentPage},keyword=${keyword})}">
-                    <div class="form-group">
-                        <input type="hidden" id="id" class="form-control" name="id" th:value="${category.id}">
-                    </div>
-                    <div class="form-group">
-                        <label for="label">Label</label>
-                        <input type="text" id="label" class="form-control" name="label" th:value="${category.label}">
-                        <span class="text-danger" th:errors="${category.label}"></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="imageLink">Image link</label>
-                        <input type="text" id="imageLink" class="form-control" name="imageLink"
-                               th:value="${category.imageLink}">
-                        <span class="text-danger" th:errors="${category.imageLink}"></span>
-                    </div>
+    <div class="row mt-3">
+        <div class="col-md-6 offset-3">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h3 class="h3">Register Category</h3>
+                </div>
+                <div class="card-body">
+                    <form method="post" th:action="@{/admin/save_category(page=${currentPage},keyword=${keyword})}">
+                        <div class="form-group">
+                            <input type="hidden" id="id" class="form-control" name="id" th:value="${category.id}">
+                        </div>
+                        <div class="form-group">
+                            <label for="label">Label</label>
+                            <input type="text" id="label" class="form-control" name="label"
+                                   th:value="${category.label}">
+                            <span class="text-danger" th:errors="${category.label}"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="imageLink">Image link</label>
+                            <input type="text" id="imageLink" class="form-control" name="imageLink"
+                                   th:value="${category.imageLink}">
+                            <span class="text-danger" th:errors="${category.imageLink}"></span>
+                        </div>
+                        <div class="d-grid gap-2 my-2">
+                            <button type="submit" class="btn btn-primary my-2">Save</button>
+                        </div>
+                    </form>
 
-                    <button type="submit" class="btn btn-primary my-1">Save</button>
-                </form>
-
+                </div>
             </div>
         </div>
     </div>

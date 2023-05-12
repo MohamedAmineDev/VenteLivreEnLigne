@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/webjars/bootstrap/5.2.3/css/bootstrap.min.css">
     <script src="/webjars/bootstrap/5.2.3/js/bootstrap.bundle.js"
     ></script>
+    <script type="text/javascript" th:src="@{/js/login_validation.js}"></script>
 </head>
 <body>
 <div class="row mt-3">
@@ -31,13 +32,13 @@
                     <div class="form-group">
                         <label for="password">Password</label>
                         <input type="password" id="password" class="form-control" name="password"
-                               th:value="${user.password}">
+                               th:value="${user.password}" required>
                         <span class="text-danger" th:errors="${user.password}"></span>
                     </div>
                     <div class="form-group">
                         <label for="confirmPassword">Confirm Password</label>
                         <input type="password" id="confirmPassword" class="form-control" name="confirmPassword"
-                               th:value="${user.confirmPassword}">
+                               th:value="${user.confirmPassword}" required>
                         <span class="text-danger" th:errors="${user.confirmPassword}"></span>
                     </div>
                     <div class="form-group">
@@ -46,8 +47,20 @@
                                th:value="${user.phoneNumber}">
                         <span class="text-danger" th:errors="${user.phoneNumber}"></span>
                     </div>
+                    <div class="form-group">
+                        <label for="profileImage">Profile Image</label>
+                        <input type="text" id="profileImage" class="form-control" name="profileImage"
+                               th:value="${user.profileImage}">
+                        <span class="text-danger" th:errors="${user.profileImage}"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="isMale">Male</label>
+                        <input type="checkbox" id="isMale" class="form-check-input" name="isMale"
+                               th:checked="${user.isMale}">
+                        <span class="text-danger" th:errors="${user.isMale}"></span>
+                    </div>
                     <div class="d-grid gap-2 my-2">
-                        <button type="submit" class="btn btn-primary my-2">Register</button>
+                        <button type="submit" class="btn btn-primary my-2" th:onclick="validForm(event)">Register</button>
                     </div>
                 </form>
                 <div class="form-group my-2 text-center">
