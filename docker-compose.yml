@@ -1,0 +1,17 @@
+version: "3.3"
+services:
+  mysellingbookapp:
+   image: mysellingbookapp:v4
+   build: .
+   restart: always
+   ports:
+      - 8080:8080
+  mydatabase:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 123
+    volumes:
+      - db:/var/lib/mysql
+volumes:
+  db:
