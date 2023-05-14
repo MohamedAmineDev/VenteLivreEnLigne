@@ -36,8 +36,10 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.formLogin().loginPage("/login").defaultSuccessUrl("/", true).failureForwardUrl("/login-error").permitAll();
-        httpSecurity.rememberMe().userDetailsService(userDetailsService);
-        httpSecurity.authorizeHttpRequests().requestMatchers("/webjars/**","/js/**").permitAll();
+        httpSecurity.rememberMe()
+                .key("uniqueAndSecret")
+                .userDetailsService(userDetailsService);
+        httpSecurity.authorizeHttpRequests().requestMatchers("/webjars/**", "/js/**").permitAll();
         httpSecurity.authorizeHttpRequests().requestMatchers("/register_user", "/login-error").permitAll();
         httpSecurity.authorizeHttpRequests().requestMatchers("/save_user").permitAll();
         httpSecurity.authorizeHttpRequests().requestMatchers("/user/**").hasRole("USER");
@@ -49,6 +51,7 @@ public class SecurityConfig {
         httpSecurity.userDetailsService(userDetailsService);
         return httpSecurity.build();
     }
+
     @Bean
     public HttpSessionEventPublisher httpSessionEventPublisher() {
         return new HttpSessionEventPublisher();

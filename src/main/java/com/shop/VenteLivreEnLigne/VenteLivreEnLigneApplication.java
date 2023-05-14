@@ -1,12 +1,10 @@
 package com.shop.VenteLivreEnLigne;
 
+import com.shop.VenteLivreEnLigne.models.AppUser;
 import com.shop.VenteLivreEnLigne.models.Book;
 import com.shop.VenteLivreEnLigne.models.Genre;
 import com.shop.VenteLivreEnLigne.models.Writer;
-import com.shop.VenteLivreEnLigne.repositories.AccountService;
-import com.shop.VenteLivreEnLigne.repositories.BookRepository;
-import com.shop.VenteLivreEnLigne.repositories.GenreRepository;
-import com.shop.VenteLivreEnLigne.repositories.WriterRepository;
+import com.shop.VenteLivreEnLigne.repositories.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -53,7 +51,7 @@ public class VenteLivreEnLigneApplication {
     }
 
     //@Bean
-    CommandLineRunner commandLineRunnerUserDetails(AccountService accountService) {
+    CommandLineRunner commandLineRunnerUserDetails(AccountService accountService, AppUserRepository appUserRepository) {
         return args -> {
             /*accountService.addNewRole("USER");
             accountService.addNewRole("ADMIN");
@@ -68,12 +66,15 @@ public class VenteLivreEnLigneApplication {
             accountService.addRoleToUser("admin", "ADMIN");
              */
             //accountService.addNewRole("CLIENT");
-            accountService.addNewRole("USER");
-            accountService.addNewRole("ADMIN");
-            accountService.addNewRole("CLIENT");
-            accountService.addNewUser("admin", "mmmmmm", "admin@gmail.com", "mmmmmm");
-            accountService.addRoleToUser("admin", "USER");
-            accountService.addRoleToUser("admin", "ADMIN");
+            AppUser appUser = appUserRepository.findByUsername("admin@gmail.com");
+            if (appUser == null) {
+                accountService.addNewRole("USER");
+                accountService.addNewRole("ADMIN");
+                accountService.addNewRole("CLIENT");
+                accountService.addNewUser("admin", "mmmmmm", "admin@gmail.com", "mmmmmm");
+                accountService.addRoleToUser("admin", "USER");
+                accountService.addRoleToUser("admin", "ADMIN");
+            }
         };
     }
 }

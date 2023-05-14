@@ -25,7 +25,7 @@ public class Writer implements Serializable {
     private String name;
     @NotEmpty
     private String penName;
-    @Column(length = 3000)
+    @Column(length = 8000)
     @NotEmpty
     private String imageLink;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "writer")
