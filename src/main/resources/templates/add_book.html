@@ -46,9 +46,9 @@
                             <span class="text-danger" th:errors="${book.price}"></span>
                         </div>
                         <div class="form-group">
-                            <label for="genre">Category</label>
+                            <label for="genre">Genre</label>
                             <select class="form-control" th:field="${book.categoryId}" id="genre">
-                                <option th:each="genre : ${categories}" th:value="${genre.id}"
+                                <option th:each="genre : ${genres}" th:value="${genre.id}"
                                         th:text="${genre.label}"></option>
                             </select>
                         </div>
