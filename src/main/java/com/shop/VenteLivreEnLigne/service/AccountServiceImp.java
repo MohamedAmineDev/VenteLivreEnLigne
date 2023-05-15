@@ -36,7 +36,7 @@ public class AccountServiceImp implements AccountService {
                 .isMale(true)
                 .locked(false)
                 .phoneNumber(1646464)
-                .profileImage("https://scontent.ftun8-1.fna.fbcdn.net/v/t1.6435-1/95688083_1181356655559174_3719468058025132032_n.jpg?stp=dst-jpg_p200x200&_nc_cat=107&ccb=1-7&_nc_sid=7206a8&_nc_ohc=3KylTojAnAoAX8EJeyT&_nc_ht=scontent.ftun8-1.fna&oh=00_AfBBMwz-NTrCAF5xbOp82oSDyvgNWNw3T4WbgTEYrK_l4g&oe=6484F50D")
+                .profileImage("https://www.maketecheasier.com/assets/uploads/2021/05/how-to-enable-standard-users-to-run-a-program-with-admin-rights-featured.jpg")
                 .build();
         return appUserRepository.save(appUser);
     }

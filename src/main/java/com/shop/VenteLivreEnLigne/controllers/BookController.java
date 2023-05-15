@@ -43,7 +43,9 @@ public class BookController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         AppUser u = appUserRepository.findByUsername(authentication.getName());
         //session.setAttribute(u.getEmail(), new ShoppingBasket());
-        Basket.addUser(u.getId());
+        if (!Basket.storages.containsKey(u.getId())) {
+            Basket.addUser(u.getId());
+        }
         return "redirect:/user/index";
     }
 

@@ -23,7 +23,7 @@ public class Genre implements Serializable {
     @NotNull
     private String label;
     @NotNull
-    @Column(length = 3000)
+    @Column(length = 8000)
     private String imageLink;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "genre")
     private List<Book> books;

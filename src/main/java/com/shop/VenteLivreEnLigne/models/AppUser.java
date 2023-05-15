@@ -42,7 +42,7 @@ public class AppUser {
     private String role;
     private Boolean locked;
     private Boolean isMale;
-    @Column(length = 3000)
+    @Column(length = 8000)
     @NotNull
     private String profileImage;
 
