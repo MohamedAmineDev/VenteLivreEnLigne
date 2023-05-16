@@ -63,7 +63,7 @@ public class BookController {
     @RequestMapping("/admin/add_book")
     public String addBook(Model model) {
         model.addAttribute("book", new Book());
-        model.addAttribute("categories", genreRepository.findAll());
+        model.addAttribute("genres", genreRepository.findAll());
         model.addAttribute("writers", writerRepository.findAll());
         return "add_book.html";
     }
@@ -85,7 +85,7 @@ public class BookController {
     public String editBook(Model model, @RequestParam(name = "id") UUID id, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "keyword", defaultValue = "") String keyword) {
         Book book = bookRepository.findById(id).orElse(null);
         model.addAttribute("book", book);
-        model.addAttribute("categories", genreRepository.findAll());
+        model.addAttribute("genres", genreRepository.findAll());
         model.addAttribute("writers", writerRepository.findAll());
         model.addAttribute("currentPage", page);
         model.addAttribute("keyword", keyword);
